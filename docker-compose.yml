@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   database:
+    cap_add: [SYS_NICE]
     image: mysql:latest
     container_name: database
     volumes:

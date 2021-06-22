@@ -22,3 +22,9 @@ I followed the following documentation to figure out most of the necessary docke
 - https://docs.docker.com/engine/install/ubuntu/
 - https://docs.docker.com/compose/install/
 - https://docs.docker.com/samples/wordpress/
+
+## Useful Tips
+
+If you make changes to your docker-compose.yml file, you may need to rebuild / restart your services using the following command
+
+`docker-compose up -d --build`

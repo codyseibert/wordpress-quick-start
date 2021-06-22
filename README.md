@@ -5,7 +5,7 @@ The following repo is for hosting wordpress application on a ubuntu 20.04 virtua
 # Instructions
 
 1. create a ubuntu 20.04 Digital Ocean droplet.
-2. ssh into your droplet, i.e. ssh root@127.127.127.127
+2. ssh into your droplet, i.e. `ssh root@127.127.127.127`
 3. setup an A record which points your domain to the IP of your droplet (A blog.thewebdevjunkie.com => 127.127.127.127)
 4. clone the repo `git clone https://github.com/codyseibert/wordpress-quick-start.git`
 5. cd into the directory `cd wordpress-quick-start`

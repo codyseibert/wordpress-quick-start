@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  database:
+    image: mysql:latest
+    container_name: database
+    volumes:
+      - ./db:/var/lib/mysql
+    restart: always
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: blog_wp
+    command: "--default-authentication-plugin=mysql_native_password"
+    networks:
+      - blog-network
+  wordpress:
+    depends_on:
+      - database
+    image: wordpress:php7.4-fpm-alpine
+    container_name: wordpress
+    restart: always
+    user: "root:root"
+    env_file:
+      - .env
+    environment:
+      - WORDPRESS_DB_HOST=database:3306
+      - WORDPRESS_DB_USER=$MYSQL_USER
+      - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
+      - WORDPRESS_DB_NAME=blog_wp
+    volumes:
+      - ./php.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./wordpress:/var/www/html
+    networks:
+      - blog-network
+  caddy:
+    image: caddy:alpine
+    container_name: webserver
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./caddy_data:/data
+      - ./caddy_config:/config
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    networks:
+      - blog-network
+networks:
+  blog-network:
+    driver: bridge
